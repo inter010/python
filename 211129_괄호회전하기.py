@@ -1,46 +1,32 @@
-def solution(s):
+from collections import deque
+def solution(ip):
+    def check(s):
+        stack = []
+        for c in s:
+            if c == '(' or c == '{' or c == '[':
+                stack.append(c)
+            else:
+                if not stack:
+                    return False
+                x = stack.pop()
+                if c == ')' and x != '(':
+                    return False
+                elif c == ']' and x != '[':
+                    return False
+                elif c == '}' and x != '{':
+                    return False
+        return len(stack) == 0
+    
+    print(ip)
+    ip = deque(ip)
+    print(ip)
     answer = 0
-    dict_s = {"{}":0, "[]":0, "()": 0}
 
-    if s.count("{") + s.count("[") + s.count("(") - s.count(")") - s.count("]") - s.count("}") != 0:
-        return 0
 
-    for i in s:
-        if i == "{":
-            dict_s["{}"] += 1
-        elif i == "}":
-            dict_s["{}"] -= 1
-            if dict_s["{}"] < 0: 
-                dict_s= dict_s.fromkeys(["{}","[]","()"], 0 )
-                s += s[0:1]
-                s = s[1:]
-                continue
-        
-        if i == "(":
-            dict_s["()"] += 1
-        elif i == ")":
-            dict_s["()"] -= 1
-            if dict_s["()"] < 0: 
-                dict_s= dict_s.fromkeys(["{}","[]","()"], 0 )
-                s += s[0:1]
-                s = s[1:]
-                continue
-        
-        if i == "[":
-            dict_s["[]"] += 1
-        elif i == "]":
-            dict_s["[]"] -= 1
-            if dict_s["[]"] < 0: 
-                dict_s= dict_s.fromkeys(["{}","[]","()"], 0 )
-                s += s[0:1]
-                s = s[1:]
-                continue
-
-        answer += 1
-        dict_s= dict_s.fromkeys(["{}","[]","()"], 0 )
-        s += s[0:1]
-        s = s[1:]
-
+    for x in range(len(ip)):
+        ip.rotate(-1)
+        if check(ip):
+            answer += 1
     return answer
 
-print(solution("[)(]"))
+print(solution(")[(]"))
