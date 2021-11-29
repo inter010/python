@@ -20,7 +20,8 @@ def solution(enroll, referral, seller, amount):
                     break
 
             ##    
-            dict_prmd[enroll[i]] = ','.join((referral[i], dict_prmd.get(referral[i])))
+            #dict_prmd[enroll[i]] = ','.join((referral[i], dict_prmd.get(referral[i])))
+            dict_prmd[enroll[i]] = referral[i], dict_prmd[referral[i]]
 
     print(dict_prmd)
 
