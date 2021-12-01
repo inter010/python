@@ -24,15 +24,34 @@ def solution(name):
     if not l_index : 
         return 0
     
-    print(l_index)
-    print(l_distance)
+    #print(l_index)
+    #print(l_distance)
 
-    # index = 0
-    # while l_index:
-    #     for i in l_index:
-    #         l_comp.append(i-index)
+    index = 0
+    while l_index:
+    #for i in (0,1):
+        
+        #print(l_index, index)
+        
+        if index < min(l_index):
+        # index가 애들보다 작을 때
+            right = min(l_index) - index
+            left = len(name) - max(l_index) + index
+        elif index > max(l_index):
+            right =len(name) -i + min(l_index)
+            left = index - max(l_index)
+
+        if right <= left:
+            index = min(l_index)
+            l_index.remove(index)
+            answer += right
+        else :
+            index = max(l_index)
+            l_index.remove(index)
+            answer += left
+
     
     return answer 
 
 
-print(solution("ABAAAAABB"))
+print(solution("BBABAAAB"))
